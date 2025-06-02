@@ -23,7 +23,7 @@
                         (exists (?t - tipo)
                             (and 
                                 (platodetipo ?p ?t)
-                                
+
                                 (or
                                     (= ?d viernes)
                                     (exists (?d2 - dia ?p2 - primero)
@@ -89,6 +89,42 @@
         :precondition (and
                         (not (usado ?s))
                         (not (ocupado-segundo ?d))
+                        (not (bloqueado ?d ?s))
+                        (exists (?t -tipo)
+                            (and
+                                (platodetipo ?s ?t)
+                                
+                                (or
+                                    (= ?d viernes)
+                                    (exists (?d2 -dia ?s2 - segundo)
+                                        (and
+                                            (dia-siguiente ?d ?d2)
+                                            (or (not (ocupado-segundo ?d2))
+                                                (and 
+                                                    (segundoasignado ?d2 ?s2)
+                                                    (not (platodetipo ?s2 ?t))
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+
+                                (or
+                                    (= ?d lunes)
+                                    (exists (?d2 -dia ?s2 - segundo)
+                                        (and
+                                            (dia-siguiente ?d2 ?d)
+                                            (or (not (ocupado-segundo ?d2))
+                                                (and 
+                                                    (segundoasignado ?d2 ?s2)
+                                                    (not (platodetipo ?s2 ?t))
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
                         (or
                             (not (ocupado-primero ?d))
                             (exists (?p - primero) (and (primeroasignado ?d ?p)
@@ -102,6 +138,19 @@
                     (ocupado-segundo ?d)
                     (usado ?s)
 
+                )
+    )
+
+    (:action deletesegundo
+        :parameters (?d - dia ?s - segundo)
+        :precondition (and
+                        (ocupado-segundo ?d)
+                        (segundoasignado ?d ?s))
+        :effect (and
+                    (not (ocupado-segundo ?d))
+                    (not (segundoasignado ?d ?s))
+                    (not (usado ?s))
+                    (bloqueado ?d ?s)
                 )
     )
 
