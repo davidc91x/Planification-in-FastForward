@@ -1,6 +1,6 @@
 (define (domain dominio2)
     (:requirements :adl :typing :fluents)
-    (:types dia plato primero - plato segundo - plato tipo euros kcal)
+    (:types dia plato primero - plato segundo - plato tipo)
     (:predicates
         (platodetipo ?pl - plato ?t - tipo)
         (incompatibles ?p - primero ?s - segundo)
