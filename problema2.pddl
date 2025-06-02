@@ -46,6 +46,11 @@
     (incompatibles lentejas albondigas)
     (incompatibles ensalada_rusa entrecot)
 
+
+    ;; Obligaciones
+    (obligatorio lunes lentejas)
+    ;; (obligatorio miercoles hamburguesa)
+
     ;; Precios
     (precio ensalada_rusa e7)
     (precio espinacas e5)

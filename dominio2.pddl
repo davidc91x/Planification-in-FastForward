@@ -13,12 +13,18 @@
         (usado ?pl - plato)
         (dia-siguiente ?d1 - dia ?d2 - dia)
         (bloqueado ?d - dia ?p - plato)
+        (obligatorio ?d - dia ?p - plato)
     )
     (:action addprimero
         :parameters (?d - dia ?p - primero)
         :precondition (and
-                        (not (usado ?p))
                         (not (ocupado-primero ?d))
+                        (or
+                            (not (exists (?p2 - primero)
+                                (obligatorio ?d ?p2)))
+                            (obligatorio ?d ?p)
+                            )
+                        (not (usado ?p))
                         (not (bloqueado ?d ?p))
                         (exists (?t - tipo)
                             (and 
@@ -87,8 +93,13 @@
     (:action addsegundo
         :parameters (?d - dia ?s - segundo)
         :precondition (and
-                        (not (usado ?s))
                         (not (ocupado-segundo ?d))
+                        (or
+                            (not (exists (?s2 - segundo)
+                                (obligatorio ?d ?s2)))
+                            (obligatorio ?d ?s)
+                            )
+                        (not (usado ?s))
                         (not (bloqueado ?d ?s))
                         (exists (?t -tipo)
                             (and
