@@ -9,10 +9,10 @@
     ensalada_rusa espinacas lentejas sopa_marisco pasta_vegetal - primero
 
     ;; Segundos platos
-    entrecot hamburguesa merluza salmon albondigas - segundo
+    entrecot tortilla merluza salmon albondigas - segundo
 
     ;; Tipos de comida
-    verdura legumbre sopa pasta carne pescado - tipo
+    verdura verdur legumbre sopa pasta huevo carne pescado - tipo
 
     ;; Costes
     e5 e7 e10 e12 e15 - euros
@@ -36,20 +36,20 @@
 
     ;; Tipos para segundos
     (platodetipo entrecot carne)
-    (platodetipo hamburguesa carne)
+    (platodetipo tortilla huevo)
     (platodetipo merluza pescado)
     (platodetipo salmon pescado)
     (platodetipo albondigas carne)
 
     ;; Incompatibilidades
     (incompatibles sopa_marisco salmon)
-    (incompatibles lentejas albondigas)
-    (incompatibles ensalada_rusa entrecot)
+    ;;(incompatibles lentejas albondigas)
+    ;;(incompatibles ensalada_rusa entrecot)
 
 
     ;; Obligaciones
     (obligatorio lunes lentejas)
-    ;; (obligatorio miercoles hamburguesa)
+    ;; (obligatorio miercoles tortilla)
 
     ;; Precios
     (precio ensalada_rusa e7)
@@ -59,23 +59,33 @@
     (precio pasta_vegetal e10)
 
     (precio entrecot e15)
-    (precio hamburguesa e12)
+    (precio tortilla e12)
     (precio merluza e12)
     (precio salmon e15)
     (precio albondigas e10)
 
     ;; Calorías
-    (calorias ensalada_rusa k300)
-    (calorias espinacas k300)
-    (calorias lentejas k500)
-    (calorias sopa_marisco k400)
-    (calorias pasta_vegetal k400)
+;; Calorías de primeros
+(= (calorias ensalada_rusa) 300)
+(= (calorias espinacas) 300)
+(= (calorias lentejas) 500)
+(= (calorias sopa_marisco) 700)
+(= (calorias pasta_vegetal) 600)
 
-    (calorias entrecot k700)
-    (calorias hamburguesa k700)
-    (calorias merluza k400)
-    (calorias salmon k400)
-    (calorias albondigas k500)
+;; Calorías de segundos
+(= (calorias entrecot) 700)
+(= (calorias tortilla) 700)
+(= (calorias merluza) 400)
+(= (calorias salmon) 400)
+(= (calorias albondigas) 500)
+
+
+(= (calorias-dia lunes) 0)
+(= (calorias-dia martes) 0)
+(= (calorias-dia miercoles) 0)
+(= (calorias-dia jueves) 0)
+(= (calorias-dia viernes) 0)
+
   )
 
   (:goal (and
@@ -93,5 +103,17 @@
 
     (ocupado-primero viernes)
     (ocupado-segundo viernes)
+
+    (>= (calorias-dia lunes) 1000)
+    (<= (calorias-dia lunes) 1500)
+    (>= (calorias-dia martes) 1000)
+    (<= (calorias-dia martes) 1500)
+    (>= (calorias-dia miercoles) 1000)
+    (<= (calorias-dia miercoles) 1500)
+    (>= (calorias-dia jueves) 1000)
+    (<= (calorias-dia jueves) 1500)
+    (>= (calorias-dia viernes) 1000)
+    (<= (calorias-dia viernes) 1500)
+
   ))
 )

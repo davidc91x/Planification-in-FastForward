@@ -1,5 +1,5 @@
 (define (domain dominio2)
-    (:requirements :adl :typing)
+    (:requirements :adl :typing :fluents)
     (:types dia plato primero - plato segundo - plato tipo euros kcal)
     (:predicates
         (platodetipo ?pl - plato ?t - tipo)
@@ -14,6 +14,10 @@
         (dia-siguiente ?d1 - dia ?d2 - dia)
         (bloqueado ?d - dia ?p - plato)
         (obligatorio ?d - dia ?p - plato)
+    )
+    (:functions
+    (calorias-dia ?d - dia)
+    (calorias ?pl - plato)
     )
     (:action addprimero
         :parameters (?d - dia ?p - primero)
@@ -64,15 +68,22 @@
                         )  
                         (or
                             (not (ocupado-segundo ?d))
-                            (exists (?s - segundo) (and (segundoasignado ?d ?s)
-                                                        (not (incompatibles ?p ?s)))
+                            (exists (?s - segundo) 
+                                (and 
+                                    (segundoasignado ?d ?s)
+                                    (not (incompatibles ?p ?s))
+                                    (>= (+ (calorias ?p) (calorias ?s)) 1000)
+                                    (<= (+ (calorias ?p) (calorias ?s)) 1500)
+                                )
                             )
                         )
+
                       )
         :effect (and
                     (primeroasignado ?d ?p)
                     (ocupado-primero ?d)
                     (usado ?p)
+                    (increase (calorias-dia ?d) (calorias ?p))
                 )
     )
 
@@ -86,6 +97,7 @@
                     (not (primeroasignado ?d ?p))
                     (not (usado ?p))
                     (bloqueado ?d ?p)
+                    (decrease (calorias-dia ?d) (calorias ?p))
                 )
                         
     )
@@ -139,7 +151,10 @@
                         (or
                             (not (ocupado-primero ?d))
                             (exists (?p - primero) (and (primeroasignado ?d ?p)
-                                                        (not (incompatibles ?p ?s)))
+                                                        (not (incompatibles ?p ?s))
+                                                        (>= (+ (calorias ?p) (calorias ?s)) 1000)
+                                                        (<= (+ (calorias ?p) (calorias ?s)) 1500)
+                                                        )
                             )
 
                         )
@@ -148,6 +163,7 @@
                     (segundoasignado ?d ?s)
                     (ocupado-segundo ?d)
                     (usado ?s)
+                    (increase (calorias-dia ?d) (calorias ?s))
 
                 )
     )
@@ -162,6 +178,7 @@
                     (not (segundoasignado ?d ?s))
                     (not (usado ?s))
                     (bloqueado ?d ?s)
+                    (decrease (calorias-dia ?d) (calorias ?s))
                 )
     )
 
