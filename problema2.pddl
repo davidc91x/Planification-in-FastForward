@@ -14,11 +14,6 @@
     ;; Tipos de comida
     verdura verdur legumbre sopa pasta huevo carne pescado - tipo
 
-    ;; Costes
-    e5 e7 e10 e12 e15 - euros
-
-    ;; Calorías
-    k300 k350 k400 k500 k700 - kcal
   )
 
   (:init
@@ -52,39 +47,42 @@
     ;; (obligatorio miercoles tortilla)
 
     ;; Precios
-    (precio ensalada_rusa e7)
-    (precio espinacas e5)
-    (precio lentejas e10)
-    (precio sopa_marisco e12)
-    (precio pasta_vegetal e10)
+  (= (precio ensalada_rusa) 7)
+  (= (precio espinacas) 5)
+  (= (precio lentejas) 10)
+  (= (precio sopa_marisco) 12)
+  (= (precio pasta_vegetal) 10)
 
-    (precio entrecot e15)
-    (precio tortilla e12)
-    (precio merluza e12)
-    (precio salmon e15)
-    (precio albondigas e10)
+  (= (precio entrecot) 15)
+  (= (precio tortilla) 12)
+  (= (precio merluza) 12)
+  (= (precio salmon) 15)
+  (= (precio albondigas) 10)
+
 
     ;; Calorías
-;; Calorías de primeros
-(= (calorias ensalada_rusa) 300)
-(= (calorias espinacas) 300)
-(= (calorias lentejas) 500)
-(= (calorias sopa_marisco) 700)
-(= (calorias pasta_vegetal) 600)
+  ;; Calorías de primeros
+  (= (calorias ensalada_rusa) 300)
+  (= (calorias espinacas) 300)
+  (= (calorias lentejas) 500)
+  (= (calorias sopa_marisco) 700)
+  (= (calorias pasta_vegetal) 600)
 
-;; Calorías de segundos
-(= (calorias entrecot) 700)
-(= (calorias tortilla) 700)
-(= (calorias merluza) 400)
-(= (calorias salmon) 400)
-(= (calorias albondigas) 500)
+  ;; Calorías de segundos
+  (= (calorias entrecot) 700)
+  (= (calorias tortilla) 700)
+  (= (calorias merluza) 400)
+  (= (calorias salmon) 400)
+  (= (calorias albondigas) 500)
 
 
-(= (calorias-dia lunes) 0)
-(= (calorias-dia martes) 0)
-(= (calorias-dia miercoles) 0)
-(= (calorias-dia jueves) 0)
-(= (calorias-dia viernes) 0)
+  (= (calorias-dia lunes) 0)
+  (= (calorias-dia martes) 0)
+  (= (calorias-dia miercoles) 0)
+  (= (calorias-dia jueves) 0)
+  (= (calorias-dia viernes) 0)
+
+  (= (precio-total) 0)
 
   )
 
@@ -115,5 +113,8 @@
     (>= (calorias-dia viernes) 1000)
     (<= (calorias-dia viernes) 1500)
 
+    
+
   ))
+  (:metric minimize (precio-total))
 )

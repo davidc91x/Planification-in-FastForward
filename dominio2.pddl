@@ -4,8 +4,6 @@
     (:predicates
         (platodetipo ?pl - plato ?t - tipo)
         (incompatibles ?p - primero ?s - segundo)
-        (precio ?pl - plato ?e - euros)
-        (calorias ?pl - plato ?k - kcal)
         (ocupado-primero ?d - dia)
         (ocupado-segundo ?d - dia)
         (primeroasignado ?d - dia ?p - primero)
@@ -18,7 +16,10 @@
     (:functions
     (calorias-dia ?d - dia)
     (calorias ?pl - plato)
+    (precio-total)
+    (precio ?pl - plato)
     )
+
     (:action addprimero
         :parameters (?d - dia ?p - primero)
         :precondition (and
@@ -84,6 +85,7 @@
                     (ocupado-primero ?d)
                     (usado ?p)
                     (increase (calorias-dia ?d) (calorias ?p))
+                    (increase (precio-total) (precio ?p))
                 )
     )
 
@@ -98,6 +100,7 @@
                     (not (usado ?p))
                     (bloqueado ?d ?p)
                     (decrease (calorias-dia ?d) (calorias ?p))
+                    (decrease (precio-total) (precio ?p))
                 )
                         
     )
@@ -164,6 +167,7 @@
                     (ocupado-segundo ?d)
                     (usado ?s)
                     (increase (calorias-dia ?d) (calorias ?s))
+                    (increase (precio-total) (precio ?s))
 
                 )
     )
@@ -179,6 +183,7 @@
                     (not (usado ?s))
                     (bloqueado ?d ?s)
                     (decrease (calorias-dia ?d) (calorias ?s))
+                    (decrease (precio-total) (precio ?s))
                 )
     )
 
