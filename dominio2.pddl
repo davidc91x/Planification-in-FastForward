@@ -20,7 +20,42 @@
                         (not (usado ?p))
                         (not (ocupado-primero ?d))
                         (not (bloqueado ?d ?p))
+                        (exists (?t - tipo)
+                            (and 
+                                (platodetipo ?p ?t)
+                                
+                                (or
+                                    (= ?d viernes)
+                                    (exists (?d2 - dia ?p2 - primero)
+                                        (and
+                                            (dia-siguiente ?d ?d2)
+                                            (or (not (ocupado-primero ?d2))
+                                                (and 
+                                                    (primeroasignado ?d2 ?p2)
+                                                    (not (platodetipo ?p2 ?t))
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
 
+                                (or
+                                    (= ?d lunes)
+                                    (exists (?d2 -dia ?p2 - primero)
+                                        (and
+                                            (dia-siguiente ?d2 ?d)
+                                            (or (not (ocupado-primero ?d2))
+                                                (and 
+                                                    (primeroasignado ?d2 ?p2)
+                                                    (not (platodetipo ?p2 ?t))
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+
+                            )
+                        )  
                         (or
                             (not (ocupado-segundo ?d))
                             (exists (?s - segundo) (and (segundoasignado ?d ?s)
