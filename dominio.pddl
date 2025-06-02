@@ -150,8 +150,8 @@
                             (not (ocupado-primero ?d))
                             (exists (?p - primero) (and (primeroasignado ?d ?p)
                                                         (not (incompatibles ?p ?s))
-                                                        (<= (+ (caloriasdia ?d) (calorias ?p)) 1500)
-                                                        (>= (+ (caloriasdia ?d) (calorias ?p)) 1000))
+                                                        (<= (+ (caloriasdia ?d) (calorias ?s)) 1500)
+                                                        (>= (+ (caloriasdia ?d) (calorias ?s)) 1000))
                             )
 
                         )
